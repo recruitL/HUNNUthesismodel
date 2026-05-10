@@ -1,0 +1,106 @@
+% ==========================================
+%  style/theorems.tex  —  定理环境与样式
+%  基于 amsthm 宏包
+% ==========================================
+
+% --- 主题颜色 ---
+\definecolor{winered}{rgb}{0.5,0,0}
+\definecolor{structurecolor}{RGB}{122,122,142}
+\definecolor{main}{HTML}{3D445F}
+\definecolor{second}{HTML}{627581}
+\definecolor{third}{HTML}{9D8798}
+\definecolor{tianlan}{RGB}{102,179,255}
+
+% --- 定理样式 ---
+% 定义样式
+\newtheoremstyle{defstyle}
+	{3pt}{3pt}
+	{\kaishu}
+	{-3pt}
+	{\bfseries\color{main}}
+	{}
+	{0.5em}
+	{\indent 【\thmname{#1} \thmnumber{#2}】 \thmnote{(#3)}}
+
+% 定理样式
+\newtheoremstyle{thmstyle}
+	{3pt}{3pt}
+	{\kaishu}
+	{-3pt}
+	{\bfseries\color{second}}
+	{}
+	{0.5em}
+	{\indent【\thmname{#1} \thmnumber{#2}】\thmnote{(#3)}}
+
+% 问题样式
+\newtheoremstyle{prostyle}
+	{3pt}{3pt}
+	{\kaishu}
+	{-3pt}
+	{\bfseries\color{third}}
+	{}
+	{0.5em}
+	{\indent【\thmname{#1} \thmnumber{#2}】 \thmnote{(#3)}}
+
+% --- 定理环境定义 ---
+\theoremstyle{thmstyle}
+\newtheorem{theorem}{定理}[chapter]
+
+\theoremstyle{defstyle}
+\newtheorem{definition}{定义}[chapter]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+
+\theoremstyle{prostyle}
+\newtheorem{proposition}{问题}[chapter]
+\newtheorem{example}{例题}[chapter]
+\newtheorem{remark}[theorem]{注}
+
+% --- 自定义定理引用 ---
+\newcommand{\mytheoremdef}[2]{%
+	{\color{second}【#1】}%
+	#2%
+}
+
+% --- 证明与解答环境 ---
+\renewenvironment{proof}[1][证明]{%
+	\par\heiti{#1.}\;\songti
+}{%
+	\qed\par
+}
+
+\newenvironment{solution}{%
+	\par\heiti{解.}\;\fangsong
+}{%
+	\qed\par
+}
+
+% --- 文献引用标注 ---
+\newcommand{\intro}[1]{%
+	\rightline{\parbox[t]{5cm}{\footnotesize\fangsong\quad\quad #1}}%
+}
+
+% --- 自定义可计数彩色盒子 ---
+\newcounter{mybox}
+\newenvironment{mybox}[1]{%
+	\refstepcounter{mybox}%
+	\begin{tcolorbox}[
+		colback=blue!5!white,
+		colframe=blue!65!white,
+		title={\centering Box \themybox: #1},
+		breakable
+	]%
+}{%
+	\end{tcolorbox}%
+}
+
+\newcommand{\myboxref}[1]{%
+	\hyperref[#1]{\textbf{Box~\ref*{#1}}}%
+}
+
+% --- 带圈数字 ---
+\newcommand{\circledtext}[2]{%
+	\protect\tikz[baseline=(char.base)]{%
+		\protect\node[shape=circle,draw=tianlan,fill=#1,inner sep=2pt,text=white] (char) {#2};%
+	}%
+}

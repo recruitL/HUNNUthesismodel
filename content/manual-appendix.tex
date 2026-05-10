@@ -1,0 +1,146 @@
+% ==========================================
+%  content/manual-appendix.tex  —  附录
+% ==========================================
+\documentclass[../main-manual.tex]{subfiles}
+\begin{document}
+
+\cleardoublepage
+\chapappendix
+
+% --- 附录 A ---
+\customappendix{GB/T 7714 参考文献著录格式示例} \label{App:gbt7714}
+
+本附录提供 GB/T 7714—2015《信息与文献 参考文献著录规则》的常用条目格式。本模板使用 \path{gbt7714} 宏包自动排版，用户只需在 \path{.bib} 文件中按 Bib\TeX{} 格式填写，编译后自动生成符合国标的参考文献列表。
+
+\subsection*{A.1 期刊论文}
+
+\begin{lstlisting}[language=TeX, caption={期刊论文 BibTeX 条目}]
+@article{Author2024,
+  author  = {张三 and 李四},
+  title   = {引力波探测中的数据处理方法},
+  journal = {物理学报},
+  volume  = {73},
+  number  = {1},
+  pages   = {1--15},
+  year    = {2024},
+}
+\end{lstlisting}
+
+\subsection*{A.2 专著}
+
+\begin{lstlisting}[language=TeX, caption={专著 BibTeX 条目}]
+@book{Misner1973,
+  author    = {Misner, C. W. and Thorne, K. S. and Wheeler, J. A.},
+  title     = {Gravitation},
+  publisher = {W. H. Freeman},
+  address   = {San Francisco},
+  year      = {1973},
+}
+\end{lstlisting}
+
+\subsection*{A.3 学位论文}
+
+\begin{lstlisting}[language=TeX, caption={学位论文 BibTeX 条目}]
+@phdthesis{Wang2025,
+  author = {王五},
+  title  = {基于有效单体理论的引力波模板研究},
+  school = {湖南师范大学},
+  year   = {2025},
+}
+\end{lstlisting}
+
+\subsection*{A.4 会议论文}
+
+\begin{lstlisting}[language=TeX, caption={会议论文 BibTeX 条目}]
+@inproceedings{Li2023,
+  author    = {Li, Wei and Zhang, Ming},
+  title     = {Gravitational wave data analysis},
+  booktitle = {Proceedings of the 15th International Conference
+               on Gravitation},
+  address   = {Beijing, China},
+  year      = {2023},
+  pages     = {234--240},
+}
+\end{lstlisting}
+
+\subsection*{A.5 电子资源}
+
+\begin{lstlisting}[language=TeX, caption={在线资源 BibTeX 条目}]
+@misc{LIGO2024,
+  author = {{LIGO Scientific Collaboration}},
+  title  = {GWTC-3: Compact Binary Coalescences Observed
+            by LIGO and Virgo},
+  howpublished = {\url{https://arxiv.org/abs/2111.03606}},
+  year   = {2024},
+}
+\end{lstlisting}
+
+% --- 附录 B ---
+\customappendix{\LaTeX{} 常见问题与资源} \label{App:troubleshooting}
+
+\subsection*{B.1 常见编译错误}
+
+% 旋转90度以适应宽表格
+\begin{sidewaystable}
+	\centering
+	\caption{编译错误速查表}
+	\label{tab:errors}
+	\begin{tabular}{lp{7cm}p{7cm}}
+		\toprule
+		错误信息 & 可能原因 & 解决方法 \\
+		\midrule
+		\texttt{Undefined control sequence} & 命令名拼写错误，或未加载对应宏包 & 检查拼写，确认已通过 \texttt{\char`\\usepackage} 加载所需宏包 \\
+		\texttt{File not found} & 文件引用路径错误 & 检查 \texttt{\char`\\input}、\texttt{\char`\\include} 或图片路径 \\
+		\texttt{Misplaced alignment} & 表格中对齐符 \texttt{\&} 数量与列数不匹配 & 检查列定义与每行的 \texttt{\&} 数量 \\
+		\texttt{Missing \char`\$ inserted} & 在文本模式中使用了数学命令 & 为数学内容加上 \texttt{\char`\$...\char`\$} 或使用 \texttt{\char`\\ensuremath} \\
+		\texttt{There's no line here to end} & 在不应换行处使用了 \texttt{\char`\\\char`\\} & 删除多余的换行命令，或改用 \texttt{\char`\\par} \\
+		\texttt{Too many \char`\}'s} & 花括号匹配错误 & 检查 \texttt{\char`\{} 和 \texttt{\char`\}} 是否一一对应 \\
+		\texttt{Font ... not found} & 系统缺少指定字体 & 修改 \path{fonts.tex} 中的字体名，或安装对应字体 \\
+		\bottomrule
+	\end{tabular}
+\end{sidewaystable}
+
+\subsection*{B.2 字体安装指南}
+
+\textbf{macOS}：中文字体（宋体、黑体、楷体、仿宋、华文行楷）均预装，无需额外安装。
+
+\textbf{Windows}：
+\begin{enumerate}
+	\item 宋体（SimSun）和黑体（SimHei）预装。
+	\item 楷体（KaiTi）预装。
+	\item 华文行楷（STXingkai）若缺失，可下载安装或修改 \path{style/fonts.tex} 将封面字体改为楷体。
+\end{enumerate}
+
+\textbf{Linux}：
+\begin{lstlisting}[language=bash, caption={Ubuntu/Debian 安装中文字体}]
+sudo apt-get install fonts-wqy-microhei fonts-wqy-zenhei
+# 或安装 Windows 字体
+sudo apt-get install ttf-mscorefonts-installer
+\end{lstlisting}
+
+\subsection*{B.3 实用在线资源}
+
+\begin{itemize}
+	\item CTAN（\url{https://ctan.org}）：宏包文档大全。
+	\item \TeX{} Stack Exchange（\url{https://tex.stackexchange.com}）：问答社区。
+	\item Overleaf \LaTeX{} 教程（\url{https://www.overleaf.com/learn}）：入门教程。
+	\item \LaTeX{} Studio（\url{https://ask.latexstudio.net}）：中文问答。
+\end{itemize}
+
+\subsection*{B.4 本模板的宏包依赖}
+
+本模板依赖的所有宏包均为 \TeX{} Live / Mac\TeX{} 标准发行版自带，无需手动安装。如使用在线 \LaTeX{} 平台（如 Overleaf），这些宏包均已在云端预装。
+
+% ==========================================
+%  参考文献（位于附录末尾）
+% ==========================================
+\FloatBarrier
+\clearpage
+\begingroup
+\ctexset{chapter={beforeskip=-20pt,afterskip=10pt}}
+\phantomsection\addcontentsline{toc}{chapter}{\heiti \zihao{-4} 参考文献}\tolerance=500
+\renewcommand{\bibname}{\heiti \zihao{4} 参考文献}
+\bibliography{../manual-references}
+\endgroup
+
+\end{document}

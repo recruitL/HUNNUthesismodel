@@ -1,0 +1,29 @@
+% ==========================================
+%  style/listings.tex  —  代码块样式
+%  默认为 Mathematica，可自行添加其他语言
+% ==========================================
+
+\lstset{
+	language=Mathematica,
+	basicstyle=\ttfamily\small,
+	escapeinside={(*@}{@*)},
+	keywordstyle=\color{blue}\bfseries,
+	commentstyle=\color{green!60!black},
+	stringstyle=\color{orange},
+	showstringspaces=false,
+	frame=single,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	tabsize=4,
+}
+
+% Mathematica 关键字定义
+\lstdefinelanguage{Mathematica}{
+	morekeywords={Module,Integrate,Series,Normal,Total,DeleteCases,Limit,
+		Simplify,Expand,List,Assumptions},
+	sensitive=true,
+	morecomment=[l]{(*},
+	morecomment=[l]{*)},
+	morestring=[b]"
+}

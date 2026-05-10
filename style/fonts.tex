@@ -1,0 +1,19 @@
+% ==========================================
+%  style/fonts.tex  —  中英文字体设置
+%  需要 XeLaTeX 编译
+% ==========================================
+
+% 英文主字体
+\setmainfont{Times New Roman}
+
+% CJK 字距微调
+\xeCJKsetup{
+	CJKchecksingle,
+	CJKnumber,
+	underdot/symbol=^^b7
+}
+
+% 华文行楷（封面用，需系统安装 STXingkai 字体）
+% macOS 自带该字体；Windows/Linux 可能需替换为楷体
+\setCJKfamilyfont{hwxk}{STXingkai}
+\newcommand{\huawenxingkai}{\CJKfamily{hwxk}}

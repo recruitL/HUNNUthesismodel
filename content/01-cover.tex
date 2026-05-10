@@ -1,0 +1,128 @@
+% ==========================================
+%  content/01-cover.tex  —  封面与扉页
+%  可独立编译: xelatex 01-cover.tex
+% ==========================================
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+% ==========================================
+%  第一页：封面
+% ==========================================
+\cleardoublepage
+\newgeometry{left=2.1cm,right=2.1cm,top=2.5cm,bottom=2.5cm,headsep=25pt}
+
+\thispagestyle{empty}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{figure/HUNNU.png}
+\end{figure}
+
+\begin{center}
+	\quad \\
+	\quad \\
+	\heiti \fontsize{45}{17} \youreduclass
+	\vskip 2.0cm
+	{\heiti \zihao{2} \yourtitlenamechinese}
+	\vskip 1.0cm
+	{
+		\linespread{1.2} \heiti \zihao{2}\selectfont
+		\yourtitlenameenglish
+		\par
+	}
+\end{center}
+
+\vfill
+
+\begin{center}
+	\songti \zihao{4}
+	\makebox[12em][s]{\kaishu \zihao{3}{一\hspace{\fill}级\hspace{\fill}学\hspace{\fill}科\hspace{\fill}名\hspace{\fill}称}}
+		\dlmu[7cm]{\kaishu{\zihao{3} \yourmajor}} \\[1.5em]
+	\makebox[12em][s]{\kaishu \zihao{3}{二级学科/学科方向名称}}
+		\dlmu[7cm]{\kaishu{\zihao{3}\yoursubmajor}} \\[1.5em]
+	\makebox[12em][s]{\kaishu \zihao{3}{研\hspace{\fill}究\hspace{\fill}生\hspace{\fill}姓\hspace{\fill}名}}
+		\dlmu[7cm]{\kaishu{\zihao{3} \yourname}} \\[1.5em]
+	\makebox[12em][s]{\kaishu \zihao{3}{导\hspace{\fill}师\hspace{\fill}姓\hspace{\fill}名\hspace{\fill}、\hspace{\fill}职\hspace{\fill}称}}
+		\dlmu[7cm]{\kaishu{\zihao{3}\yoursupervisorname}} \\[1.5em]
+\end{center}
+
+\vfill
+
+\begin{center}
+	{\songti \zihao{4}
+		\universityaddress \\
+		\vspace*{1em}
+		\yourtitledate}
+\end{center}
+
+\newpage
+\thispagestyle{empty}
+\null
+\newpage
+
+% ==========================================
+%  第二页：扉页（学籍信息页）
+% ==========================================
+\thispagestyle{empty}
+
+\vskip 2.0cm
+\begin{center}
+	\begin{multicols}{2}
+		\balance
+		\heiti \zihao{-4}
+		\makebox[4em][s]{分\hspace{\fill}类\hspace{\fill}号} \dlmu[4cm]{\yourclassnumber} \\[1em]
+		\makebox[4em][s]{学校代码} \dlmu[4cm]{\universityschoolcode} \\[1em]
+		\makebox[4em][s]{密\hspace{\fill}级} \dlmu[4cm]{公开} \\[1em]
+		\makebox[4em][s]{学\hspace{\fill}号} \dlmu[4cm]{\yourstudentnumber} \\[1em]
+	\end{multicols}
+\end{center}
+
+\vskip 2.0cm
+\begin{center}
+	\quad \\
+	\quad \\
+	{\heiti \zihao{2} \yourtitlenamechinese}
+	\vskip 1.0cm
+	{
+		\linespread{1.2} \heiti \zihao{2}\selectfont
+		\yourtitlenameenglish
+		\par
+	}
+\end{center}
+
+\vskip 3.2cm
+\begin{center}
+	\fangsong \zihao{4}
+	\makebox[10em][s]{\kaishu \zihao{3}{研\hspace{\fill}究\hspace{\fill}生\hspace{\fill}姓\hspace{\fill}名}}
+		\dlmu[7cm]{\kaishu{\zihao{3} \yourname}} \\[1.5em]
+	\makebox[10em][s]{\kaishu \zihao{3}{指导老师姓名、职称}}
+		\dlmu[7cm]{\kaishu{\zihao{3}\yoursupervisorname}} \\[1.5em]
+	\makebox[10em][s]{\kaishu \zihao{3}{学\hspace{\fill}科\hspace{\fill}专\hspace{\fill}业}}
+		\dlmu[7cm]{\kaishu{\zihao{3} \yourmajor}} \\[1.5em]
+	\makebox[10em][s]{\kaishu \zihao{3}{研\hspace{\fill}究\hspace{\fill}方\hspace{\fill}向}}
+		\dlmu[7cm]{\kaishu{\zihao{3} \yourresearchorient}} \\[1.5em]
+	% 【硕士/学士如需显示学位类型复选框，取消下面一行注释】
+	% \makebox[10em][s]{\kaishu \zihao{3}{学\hspace{\fill}位\hspace{\fill}类\hspace{\fill}型}}
+	% 	\dlmu[7cm]{\yourdegree} \\[1.5em]
+	% 【如需显示论文编号，取消下面一行注释】
+	% \makebox[10em][s]{\kaishu \zihao{3}{论\hspace{\fill}文\hspace{\fill}编\hspace{\fill}号}}
+	% 	\dlmu[7cm]{\yourpapernumber} \\[1.5em]
+\end{center}
+
+\vfill
+
+\begin{center}
+	{\fangsong \zihao{4}
+		\universityaddress \\
+		\vspace*{1em}
+		\yourtitledate}
+\end{center}
+
+\newpage
+\thispagestyle{empty}
+\null
+\newpage
+
+\restoregeometry
+
+\end{document}

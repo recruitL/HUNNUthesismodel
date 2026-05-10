@@ -1,0 +1,32 @@
+% ==========================================
+%  style/layout.tex  —  页面布局与段落设置
+% ==========================================
+
+% 纸张与边距
+\geometry{
+	a4paper,
+	left=2.1cm,
+	right=2.1cm,
+	top=2.5cm,
+	bottom=2.5cm,
+	headsep=25pt
+}
+
+% 全局行距倍率（正文中可用 \begin{spacing}{1.5} 覆盖）
+\renewcommand{\baselinestretch}{1.0}
+
+% 数学公式允许跨页断行（程度4为最宽松）
+\allowdisplaybreaks[4]
+
+% 文本对齐：页面内容顶部对齐（防止浮动体把文字撑开）
+\raggedbottom
+
+% 列表环境默认间距（避免 item 突破左边距）
+\setlist[enumerate]{leftmargin=*,itemsep=2pt,parsep=0pt}
+\setlist[itemize]{leftmargin=*,itemsep=2pt,parsep=0pt}
+\setlist[description]{leftmargin=*,itemsep=2pt,parsep=0pt}
+
+% 允许等宽字体（\texttt）自动断行
+\usepackage{etoolbox}
+\AtBeginEnvironment{verbatim}{\raggedright}
+

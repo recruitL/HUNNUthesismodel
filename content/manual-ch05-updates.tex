@@ -1,0 +1,113 @@
+% ==========================================
+%  content/manual-ch05-updates.tex  —  第五章 更新及功能增加
+% ==========================================
+\documentclass[../main-manual.tex]{subfiles}
+\begin{document}
+
+\cleardoublepage
+\thispagestyle{empty}
+\zihao{-4} \songti
+\setlength{\baselineskip}{24pt}
+\RaggedRight
+\setlength{\parindent}{2em}
+\raggedbottom
+
+\chapter{更新及功能增加} \label{ch:updates}
+
+\section{安全扩展原则}
+
+本模板的设计保证了用户可以安全地扩展模板而不会破坏其核心功能：
+
+\begin{enumerate}[label=\textbf{原则\arabic*：}]
+	\item \textbf{所有个人新增放入 \path{custom.tex}}，不直接修改 \path{style/} 模块文件。
+	\item \textbf{\path{custom.tex} 最后加载}，可以覆盖任何之前定义的设置。
+	\item \textbf{保留原始文件}，需要回滚时只需清空 \path{custom.tex}。
+\end{enumerate}
+
+\section{添加新宏包}
+
+在 \path{style/custom.tex} 的"自定义宏包"区添加 \verb|\usepackage| 声明：
+
+\begin{lstlisting}[language=TeX, caption={添加常用宏包}]
+% 文档内超链接（hyperref 已加载，但可调整设置）
+% 化学方程式
+% \usepackage[version=4]{mhchem}
+% 算法伪代码
+% \usepackage{algorithm2e}
+% 单位排版
+% \usepackage{siunitx}
+% 自定义列表
+% \usepackage{enumitem}  % 已加载，可调参数
+\end{lstlisting}
+
+注意：\path{natbib} 和 \path{gbt7714} 宏包由模板核心管理，不建议在 \path{custom.tex} 中重新加载或修改其选项。
+
+\section{定义自定义命令}
+
+\begin{lstlisting}[language=TeX, caption={常用自定义命令}]
+% 数学符号
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% 偏导数
+\newcommand{\pdm}[2]{\frac{\partial #1}{\partial #2}}
+
+% 矢量
+\newcommand{\vect}[1]{\bm{#1}}
+
+% 张量
+\newcommand{\tens}[1]{\mathbf{#1}}
+
+% 期望值
+\newcommand{\expect}[1]{\langle #1 \rangle}
+\end{lstlisting}
+
+\section{覆盖已有格式}
+
+\path{custom.tex} 在所有样式文件的最后加载，因此其中的 \verb|\renewcommand| 或 \verb|\ctexset| 会覆盖之前模块中的设置：
+
+\begin{lstlisting}[language=TeX, caption={覆盖示例}]
+% 将章标题改为黑体（默认是楷体）
+\ctexset{
+	chapter = {
+		format = \heiti\centering\zihao{-1}
+	}
+}
+
+% 修改页眉文字
+\fancyhead[CE]{\songti\zihao{5} 自定义页眉左}
+\fancyhead[CO]{\songti\zihao{5} 自定义页眉右}
+
+% 修改参考文献标题
+\renewcommand{\bibname}{\heiti \zihao{3} 参考文献列表}
+\end{lstlisting}
+
+\section{添加新定理环境}
+
+如需添加模板未包含的定理环境（如"猜想"、"假设"），在 \path{custom.tex} 中添加：
+
+\begin{lstlisting}[language=TeX, caption={添加自定义定理环境}]
+% 使用已有的定理样式
+\theoremstyle{thmstyle}
+\newtheorem{conjecture}{猜想}[chapter]
+
+\theoremstyle{defstyle}
+\newtheorem{assumption}{假设}[chapter]
+\end{lstlisting}
+
+\section{版本更新注意事项}
+
+当模板官方发布更新时，你可能需要合并 \path{style/} 目录的变更：
+
+\begin{enumerate}[label=\textbf{第\arabic*步：}]
+	\item 将新版 \path{style/} 目录覆盖旧版。
+	\item 检查 \path{style/custom.tex} 中的自定义内容是否与新版本冲突。
+	\item 如有冲突，将自定义部分调整为与新版本兼容的形式。
+	\item 重新编译验证。
+\end{enumerate}
+
+由于用户的自定义内容全部在 \path{custom.tex} 中，而核心模块在 \path{style/} 中，升级通常只需替换 \path{style/} 目录，不会影响用户自定义内容。
+
+\end{document}

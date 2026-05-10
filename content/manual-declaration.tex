@@ -1,0 +1,124 @@
+% ==========================================
+%  content/manual-declaration.tex  —  手册成果、致谢、声明
+% ==========================================
+\documentclass[../main-manual.tex]{subfiles}
+\begin{document}
+
+% ==========================================
+%  成果
+% ==========================================
+\cleardoublepage
+\begin{center}
+	{\heiti \zihao{3} 攻读\youreduction 士学位期间完成的成果}
+\end{center}
+\vspace{0.1cm}
+\songti \zihao{4}
+\phantomsection\addcontentsline{toc}{section}{\heiti \zihao{-4} 攻读\youreduction 士学位期间完成的成果}\tolerance=500
+
+{
+	\zihao{-4}
+	\begin{enumerate}[label=\textbf{[\arabic*]}]
+		\item YL. Hunan Normal University Dissertation \LaTeX{} Template.
+			\textit{GitHub Repository}, 2026.
+		\item YL,马克思. 学术论文排版模板的模块化设计与 AI 协作方法.
+			\textit{文档工程学报}, 2026.（审稿中）
+	\end{enumerate}
+}
+
+% ==========================================
+%  致谢
+% ==========================================
+\cleardoublepage
+\begin{center}
+	{\heiti \zihao{3} 致\hspace{2em}谢}
+\end{center}
+\vspace{0.5cm}
+\phantomsection\addcontentsline{toc}{section}{\heiti \zihao{-4} 致\hspace{2em}谢}\tolerance=500
+
+\begin{spacing}{1.5}
+	\songti \zihao{-4}
+
+	感谢 Donald E. Knuth 教授创造了 \TeX{}，感谢 Leslie Lamport 创造了 \LaTeX{}，感谢湖南师范大学提供了规范的学位论文格式要求，感谢所有为 \LaTeX{} 宏包生态做出贡献的开发者们。
+
+	笔者于 2025 年博士毕业，而这个模板的雏形可以追溯到 2023 年初。彼时 ChatGPT（GPT-3.5）刚刚进入公众视野，虽然 AI 已经展现出令人惊叹的能力，但距离辅助完成一个精美、规范的 \LaTeX{} 学位论文模板还有不小的距离。笔者从手搓 \texttt{filepreamble.tex} 开始，一点一点地调整边距、字体、封面格式、参考文献样式，前前后后花了近两年时间，才在毕业前把这个模板打磨到了自己满意的程度。
+
+	就在最近，笔者用 Claude Code + DeepSeek API 搭建 Obsidian 知识库时，真切地感受到了 AI 正在以不可阻挡的速度进化。仅仅一晚时间，耗费约五千万 tokens、花费不过三块钱，就完成了这个模板从单体文件到模块化架构的全面重构，以及这本七章技术手册的撰写与排版。两年前需要数月手工打磨的工作，如今在 AI 的协助下可以以小时为单位推进——这种效率的跃迁令人振奋。
+
+	但笔者更想说的是：在这个 AI 极大加速信息获取与生产力释放的时代，技术的便捷不应成为我们懈怠的借口。恰恰相反，正是因为 AI 替我们处理了大量琐碎的格式调试与代码重复劳动，我们才更应当把省下的时间投入到深度思考中去——去追问学科的本质问题，去打磨那些真正需要人类判断力与创造力的内容。AI 是加速器，但方向盘始终在自己手里。
+
+	特别感谢 Claude Code 在本手册编写过程中的全程协助，也感谢 DeepSeek 提供了高性价比的 API 服务，让个人开发者也能以极低成本享受顶尖 AI 能力。本手册从目录到正文、从代码示例到参考文献的整理，全程由 AI 辅助完成，本身就是第四章所论述的 AI 协作模式的最佳实践。
+
+	感谢导师马克思教授的悉心指导（此处的导师姓名为模板变量演示之用，实际使用时请替换为你的真实导师姓名）。
+
+	\rightline{\kaishu \zihao{-3} \yourname}
+	\rightline{\yourtitledate}
+\end{spacing}
+
+% ==========================================
+%  原创性声明
+% ==========================================
+\cleardoublepage
+\newgeometry{left=3.4cm,right=3.4cm,top=4.5cm,bottom=2.5cm,headsep=25pt}
+\thispagestyle{empty}
+
+\begin{spacing}{1.5}
+
+	\begin{center}
+		\zihao{3} \heiti
+		\universityname 学位论文原创性声明
+	\end{center}
+	\phantomsection\addcontentsline{toc}{section}{\heiti \zihao{-4} \universityname 学位论文原创性声明}\tolerance=500
+
+	\begin{flushleft}
+		\zihao{3} \songti
+		\qquad
+		本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研究工作所取得的成果。
+		除文中已经注明引用的内容外，本论文不含任何其他个人或集体已经发表或撰写过的作品成果。
+		对本文的研究做出重要贡献的个人和集体，均已在文中以明确的方式标明。
+		本人完全意识到本声明的法律结果由本人承担。
+	\end{flushleft}
+
+	\begin{center}
+		\begin{multicols}{2}
+			\balance
+			\songti \zihao{3}
+			\makebox[8em][s]{学位论文作者签名}:  \\[8em]
+			\makebox[8em][s]{\hspace{\fill}年\hspace{\fill}月\hspace{\fill}日} \\[0em]
+		\end{multicols}
+	\end{center}
+	\vskip 1cm
+
+	% --- 版权使用授权书 ---
+	\begin{center}
+		\zihao{3} \heiti
+		\universityname 学位论文版权使用授权书
+	\end{center}
+	\phantomsection\addcontentsline{toc}{section}{\heiti \zihao{-4} \universityname 学位论文版权使用授权书}\tolerance=500
+
+	\begin{flushleft}
+		\zihao{3} \songti
+		\qquad
+		本学位论文作者完全了解学校有关保留、使用学位论文的规定，
+		研究生在校攻读学位期间论文工作的知识产权单位属\universityname。
+		同意学校保留并向国家有关部门或机构送交论文的复印件和电子版，
+		允许论文被查阅和借阅。本人授权\universityname 可以将本学位论文的全部或部分内容
+		编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
+	\end{flushleft}
+	\vskip 0.5em
+
+	\begin{center}
+		\begin{multicols}{2}
+			\balance
+			\songti \zihao{3}
+			\makebox[5em][s]{作者签名：}  \\
+			\makebox[5em][s]{导师签名：}  \\
+			\makebox[5em][s]{日期：\hspace{\fill}} 年 \quad 月 \quad 日 \\
+			\makebox[5em][s]{日期：\hspace{\fill}} 年 \quad 月 \quad 日 \\
+		\end{multicols}
+	\end{center}
+
+\end{spacing}
+
+\restoregeometry
+
+\end{document}

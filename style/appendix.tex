@@ -1,0 +1,67 @@
+% ==========================================
+%  style/appendix.tex  —  附录格式与环境
+% ==========================================
+
+% 附录总标题
+\newcommand{\chapappendix}{%
+	\setcounter{chapter}{0}%
+	\chapter*{附\hspace*{1em}录}%
+	\phantomsection\addcontentsline{toc}{chapter}{\heiti \zihao{4} 附\hspace*{1em} 录}%
+	\tolerance=500
+}
+
+% 附录计数器
+\newcounter{appendixnum}
+\renewcommand{\theappendixnum}{\Alph{appendixnum}}
+
+% 单个附录命令
+% #1 = 附录标题
+% 自动完成：编号递增、居中标题、目录项、公式/图表/定理计数器重置
+\newcommand{\customappendix}[1]{%
+	\refstepcounter{appendixnum}%
+
+	\begin{center}
+		\heiti \zihao{4} 附录\theappendixnum：#1
+	\end{center}
+	\addcontentsline{toc}{section}{\heiti \zihao{-4} 附录\theappendixnum：#1}%
+
+	% 公式编号重置
+	\setcounter{equation}{0}%
+	\renewcommand{\theequation}{\theappendixnum.\arabic{equation}}%
+
+	% 图表编号重置
+	\setcounter{figure}{0}%
+	\renewcommand{\thefigure}{\theappendixnum.\arabic{figure}}%
+	\setcounter{table}{0}%
+	\renewcommand{\thetable}{\theappendixnum.\arabic{table}}%
+
+	% 定理环境编号重置
+	\ifcsname c@theorem\endcsname
+		\setcounter{theorem}{0}%
+		\renewcommand{\thetheorem}{\theappendixnum.\arabic{theorem}}%
+	\fi
+	\ifcsname c@definition\endcsname
+		\setcounter{definition}{0}%
+		\renewcommand{\thedefinition}{\theappendixnum.\arabic{definition}}%
+	\fi
+	\ifcsname c@lemma\endcsname
+		\setcounter{lemma}{0}%
+		\renewcommand{\thelemma}{\theappendixnum.\arabic{lemma}}%
+	\fi
+	\ifcsname c@corollary\endcsname
+		\setcounter{corollary}{0}%
+		\renewcommand{\thecorollary}{\theappendixnum.\arabic{corollary}}%
+	\fi
+	\ifcsname c@proposition\endcsname
+		\setcounter{proposition}{0}%
+		\renewcommand{\theproposition}{\theappendixnum.\arabic{proposition}}%
+	\fi
+	\ifcsname c@example\endcsname
+		\setcounter{example}{0}%
+		\renewcommand{\theexample}{\theappendixnum.\arabic{example}}%
+	\fi
+	\ifcsname c@remark\endcsname
+		\setcounter{remark}{0}%
+		\renewcommand{\theremark}{\theappendixnum.\arabic{remark}}%
+	\fi
+}

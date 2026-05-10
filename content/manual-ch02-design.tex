@@ -1,0 +1,234 @@
+% ==========================================
+%  content/manual-ch02-design.tex  —  第二章 设计思路及结构
+% ==========================================
+\documentclass[../main-manual.tex]{subfiles}
+\begin{document}
+
+\cleardoublepage
+\thispagestyle{empty}
+\zihao{-4} \songti
+\setlength{\baselineskip}{24pt}
+\RaggedRight
+\setlength{\parindent}{2em}
+\raggedbottom
+
+\chapter{设计思路及结构} \label{ch:design}
+
+\section{模板设计理念}
+
+本模板的设计遵循三个核心原则：
+
+\subsection{样式与内容分离}
+
+这是 \LaTeX{} 最本质的哲学——作者应该专注于"写什么"而非"长什么样"。在本模板中，所有排版格式（边距、字体、标题样式、页眉页脚、定理风格、参考文献格式等）集中在 \path{style/} 目录的 15 个文件中，而论文正文全部位于 \path{content/} 目录。修改格式时无需触碰正文，更换内容时无需担心破坏格式。
+
+\subsection{一个模块一个关切}
+
+传统的 \LaTeX{} 模板通常将所有配置堆在一个数百行的导言文件中。当用户需要修改某一项设置（如调整章标题字号）时，不得不在庞大的代码中搜索定位。本模板将导言区按功能拆分为细粒度模块：字体、布局、封面、摘要、目录、页眉、章节、定理、代码块、参考文献、附录各自独立。修改某一项只需找到对应的文件。
+
+\subsection{用户可以不理解模块}
+
+细粒度拆分虽然便于维护，但对用户提出了更高的要求——"我不知道该把新命令放在哪个文件里"。针对这一问题，本模板设置了 \path{style/custom.tex} 作为用户扩展的唯一入口。用户可以完全不理解 15 个模块的分工，所有新增需求统一写入 \path{custom.tex}。当 \path{custom.tex} 内容积累到一定程度后，可以让 AI 助手按照 \path{CLAUDE.md} 中定义的迁移规则将其中的命令归类到对应的模块文件中。
+
+\section{目录结构详解}
+
+模板的完整目录结构如\figref{fig:directory}所示。
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tcolorbox}[
+		colback=gray!5,
+		colframe=gray!50,
+		title={\centering 模板目录结构},
+		fonttitle=\ttfamily\small,
+		fontupper=\ttfamily\small
+	]
+\begin{verbatim}
+./
+├── main.tex                      入口文件（填变量 + 引样式 + 引内容）
+├── main-manual.tex               本手册的入口文件
+├── style/                        样式模块（15个文件，一个关切一个文件）
+│   ├── packages.tex              所有宏包加载（按功能分8组）
+│   ├── fonts.tex                 中英文字体配置
+│   ├── layout.tex                页面边距、行距、对齐
+│   ├── cover.tex                 封面命令（下划线、复选框）
+│   ├── abstract.tex              中英文摘要环境
+│   ├── toc.tex                   目录样式（tocloft）
+│   ├── headers.tex               页眉页脚（fancyhdr）
+│   ├── chapters.tex              章节标题格式（\ctexset）
+│   ├── theorems.tex              定理环境、彩色盒子、带圈数字
+│   ├── listings.tex              Mathematica 代码块样式
+│   ├── bib.tex                   参考文献（gbt7714 + natbib）
+│   ├── appendix.tex              附录格式（编号重置）
+│   ├── commands.tex              自定义数学/物理命令
+│   └── custom.tex                【用户扩展区】
+├── content/                      论文正文
+│   ├── 01-cover.tex              封面 + 扉页
+│   ├── 02-abstract.tex           摘要 + 目录
+│   ├── 03-chapter1.tex           第一章
+│   ├── 04-appendix.tex           附录
+│   ├── 05-declaration.tex        成果、致谢、声明
+│   └── manual-*.tex              本手册各章节
+├── figures/                      图片资源
+├── manual-references.bib         本手册参考文献
+├── gbt7714.sty                   GB/T 7714 宏包
+├── gbt7714-*.bst                 GB/T 7714 样式文件
+├── CLAUDE.md                     AI 助手协作指南
+├── .latexmkrc                    latexmk 编译配置
+├── .gitignore                    Git 忽略规则
+└── README.md                     开发者文档
+\end{verbatim}
+	\end{tcolorbox}
+	\caption{模板完整目录结构}
+	\label{fig:directory}
+\end{figure}
+
+\section{样式模块功能说明}
+
+\subsection{packages.tex —— 宏包管理中心}
+
+\path{style/packages.tex} 是本模板唯一加载宏包的地方，按以下 8 个功能组组织：
+
+\begin{enumerate}[label=\textbf{组\arabic*：}]
+	\item \textbf{页面布局}：\\\path{geometry}, \\\path{setspace}, \path{indentfirst}, \path{ragged2e}, \path{placeins}, \path{balance}, \path{multicol}, \path{enumitem}
+	\item \textbf{表格与图表}：\path{graphicx}, \path{float}, \path{subcaption}, \path{booktabs}, \path{multirow}, \path{longtable}, \path{makecell}, \path{diagbox}, \path{colortbl}, \path{array}, \path{adjustbox}, \path{rotating}, \path{xtab}
+	\item \textbf{颜色与盒子}：\path{xcolor}, \path{framed}, \path{tcolorbox}
+	\item \textbf{TikZ 绘图}：\path{tikz-cd}, \path{tikz-3dplot}, \path{tkz-euclide} 及多个 \path{tikzlibrary}
+	\item \textbf{数学}：\path{mathtools}, \path{amsmath}, \path{amsthm}, \path{amssymb}, \path{mathrsfs}, \path{cancel}, \path{tensor}
+	\item \textbf{语言与字体}：\path{fontenc}, \path{xeCJK}, \path{xeCJKfntef}, \path{babel}
+	\item \textbf{目录/页眉/引用}：\path{tocloft}, \path{fancyhdr}, \path{titlesec}, \path{natbib}, \path{gbt7714}, \path{hyperref}
+	\item \textbf{杂项与协作}：\path{listings}, \path{ulem}, \path{marginnote}, \path{pifont}, \path{etoolbox}, \path{stmaryrd}, \path{subfiles}
+\end{enumerate}
+
+相比于旧模板的 \path{filepreamble.tex}，新版本去除了重复加载（如 \path{listings} 被加载两次、\path{color} 与 \path{xcolor} 并存），并确保 \path{hyperref} 在最后加载以避免宏包冲突。
+
+\subsection{fonts.tex —— 字体配置}
+
+\begin{lstlisting}[language=TeX, caption={中英文字体设置}]
+\setmainfont{Times New Roman}          % 英文主字体
+\setCJKfamilyfont{hwxk}{STXingkai}     % 华文行楷（封面用）
+\newcommand{\huawenxingkai}{\CJKfamily{hwxk}}
+\end{lstlisting}
+
+\textbf{注意事项：}华文行楷（STXingkai）在 macOS 上预装，Windows/Linux 用户若缺少该字体，可将封面字体替换为楷体。修改 \path{style/fonts.tex} 中的字体名即可。
+
+\subsection{layout.tex —— 页面布局}
+
+定义了 A4 纸张、标准边距（左右 2.1cm、上下 2.5cm）、数学公式允许跨页断行（\verb|\allowdisplaybreaks[4]|）、页面内容顶部对齐（\verb|\raggedbottom|）等全局布局参数。
+
+\subsection{cover.tex —— 封面命令}
+
+提供了 \verb|\dlmu|（固定长度下划线）、\verb|\Boxempty| 与 \verb|\boxcheck|（复选框组件）、以及 \verb|\yourdegree|（根据 \verb|\degreetype| 自动选择学位类型的复选框）等封面排版命令。
+
+\subsection{chapters.tex —— 章节标题格式}
+
+通过 \verb|\ctexset| 统一配置 \path{chapter}、\path{section}、\path{subsection} 三级标题的字体、字号、对齐方式和段间距。此外还定义了 \verb|\subsec|、\verb|\ssubsec|、\verb|\tsubsec| 等无序号子标题命令，以及 \verb|\customchapter|（带摘要的章节）命令。
+
+\subsection{theorems.tex —— 定理环境}
+
+定义了三种定理样式（defstyle、thmstyle、prostyle）和六种定理环境（theorem、definition、lemma、corollary、proposition、example、remark）。每种样式有独立的配色（深蓝、灰蓝、灰紫）。此外还提供了 \path{mybox}（可计数彩色盒子）、\path{circledtext}（带圈数字）等辅助元素。
+
+\subsection{listings.tex —— 代码块}
+
+默认配置了 Mathematica 语言的语法高亮规则。如需添加其他语言（如 Python、C++），在 \path{style/custom.tex} 中添加 \verb|\lstdefinelanguage| 定义即可。
+
+\subsection{bib.tex —— 参考文献}
+
+加载 \path{gbt7714} 宏包实现 GB/T 7714—2015 国家标准参考文献格式。默认使用顺序编码制（\path{gbt7714-numerical}），可通过修改 \verb|\bibliographystyle| 切换为著者-出版年制（\path{gbt7714-author-year}）。同时配置了 \path{hyperref} 的链接颜色。
+
+\subsection{appendix.tex —— 附录格式}
+
+提供了 \verb|\chapappendix|（附录总标题）和 \verb|\customappendix{标题}|（单个附录）命令。每个附录自动重置公式、图表、定理的编号（如 A.1, A.2, ...），并在目录中生成对应条目。
+
+\subsection{commands.tex —— 自定义命令}
+
+集中存放数学/物理相关的自定义命令，如 \verb|\figref|（图引用快捷方式）、\verb|\ime|（虚数单位 $\ime$）、\verb|\eexp|（自然指数 $\eexp$）、\verb|\Rmnum|（大写罗马数字）以及 \verb|\Arcsinh|、\verb|\arccosh|、\verb|\tr|、\verb|\sgn| 等数学算子。
+
+\subsection{custom.tex —— 用户扩展区}
+
+\path{style/custom.tex} 是模板中最特殊的文件——你不需要理解其他 14 个模块的分工，所有个人新增的宏包、命令、格式覆盖全部放在这里。文件内部有三个明确分区：
+
+\begin{lstlisting}[language=TeX, caption={custom.tex 的三个分区}]
+% ==========================================
+%  自定义宏包（在此处加载模板未包含的宏包）
+% ==========================================
+
+% ==========================================
+%  自定义命令与环境（定义个人常用命令）
+% ==========================================
+
+% ==========================================
+%  自定义格式覆盖（覆盖 style/ 中的已有设置）
+% ==========================================
+\end{lstlisting}
+
+\path{custom.tex} 在所有样式模块的最后加载，因此其中的设置可以覆盖之前任何模块的定义。
+
+\section{用户变量系统}
+
+模板的核心设计是将所有用户需要修改的信息集中在 \path{main.tex} 开头的变量区。\tabref{tab:variables}列出了所有用户变量。
+
+\begin{table}[htbp]
+	\centering
+	\caption{用户可配置变量一览}
+	\label{tab:variables}
+	\begin{tabular}{llp{5cm}}
+		\toprule
+		变量名 & 示例值 & 说明 \\
+		\midrule
+		\verb|\youreduction| & 博 & 学历层次：博 / 硕 / 学（本科） \\
+		\verb|\degreetype| & science & 学位类型：science（学术）/ professional（专业） \\
+		\verb|\yoursubject| & 理学 & 学科门类：理学/工学/文学/... \\
+		\verb|\yourtitlenamechinese| & ... & 论文中文标题 \\
+		\verb|\yourtitlenameenglish| & ... & 论文英文标题 \\
+		\verb|\yourmajor| & 物理学 & 一级学科名称 \\
+		\verb|\yoursubmajor| & 理论物理 & 二级学科/学科方向名称 \\
+		\verb|\yourresearchorient| & 理论物理 & 研究方向 \\
+		\verb|\yourname| & 龙\quad 胜 & 作者姓名（\verb|\quad| 控制间距） \\
+		\verb|\yoursupervisorname| & 荆继良\quad 教授 & 导师姓名与职称 \\
+		\verb|\yourstudentnumber| & 202210110197 & 学号 \\
+		\verb|\yourclassnumber| & O412 & 分类号 \\
+		\verb|\yourtitledate| & 二〇二五年五月 & 答辩日期 \\
+		\verb|\yourpapernumber| & （空） & 论文编号 \\
+		\verb|\universityname| & 湖南师范大学 & 学校名称 \\
+		\verb|\universityschoolcode| & 10542 & 学校代码 \\
+		\verb|\universityaddress| & ...办公室 & 学位评定委员会地址 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{自动生成变量}
+
+以下变量由模板根据上面的用户变量自动生成，通常无需手动修改：
+
+\begin{itemize}
+	\item \verb|\yourxuewei|：由 \verb|\yoursubject| + \verb|\youreduction| + 士学位拼接，如"理学博士学位"。
+	\item \verb|\youreduclass|：由 \verb|\degreetype| 控制学术/专业，\verb|\youreduction| 控制博/硕/学，自动生成封面大字，如"学 术 学 位 博 士 论 文"或"专 业 学 位 硕 士 论 文"。
+	\item \verb|\yourdegree|：根据 \verb|\degreetype| 自动生成扉页学位类型复选框（$\boxcheck$ 科学学位 $\Boxempty$ 专业学位 或反之）。
+\end{itemize}
+
+\subsection{学位类型切换示例}
+
+修改 \path{main.tex} 顶部的两行变量即可完成所有 6 种学位组合的切换：
+
+\begin{table}[htbp]
+	\centering
+	\caption{6种学位组合与封面大字对应关系}
+	\label{tab:degree-combinations}
+	\begin{tabular}{ccc}
+		\toprule
+		\verb|\youreduction| & \verb|\degreetype| & 封面显示 \\
+		\midrule
+		博 & science & 学术学位博士学位论文 \\
+		博 & professional & 专业学位博士学位论文 \\
+		硕 & science & 学术学位硕士学位论文 \\
+		硕 & professional & 专业学位硕士学位论文 \\
+		学 & science & 学术学位学士学位论文 \\
+		学 & professional & 专业学位学士学位论文 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+切换后封面大字、页眉文字、扉页复选框、学位全称等全部自动适配，无需逐个文件修改。
+
+\end{document}

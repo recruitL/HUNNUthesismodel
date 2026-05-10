@@ -1,0 +1,31 @@
+% ==========================================
+%  style/commands.tex  —  自定义数学/物理命令
+%  可按需添加或修改
+% ==========================================
+
+% --- 图/表/代码引用 ---
+\newcommand{\figref}[1]{图~\ref{#1}}
+\newcommand{\tabref}[1]{表~\ref{#1}}
+\newcommand{\coderef}[1]{代码块~\ref{#1}}
+
+% --- 可断行的等宽字体（用于文件路径、宏包名等） ---
+\newcommand{\ptt}[1]{\path{#1}}   % 文件路径自动断行
+
+% --- 数学常数 ---
+\newcommand{\ime}{\mathrm{i}\,}      % 虚数单位 i
+\newcommand{\eexp}{\mathrm{e}}        % 自然指数 e
+
+% --- 罗马数字 ---
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+% --- 自定义数学算子 ---
+\DeclareMathOperator{\Arcsinh}{arcsinh}
+\DeclareMathOperator{\Arctan}{arctan}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\arcosh}{arcosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}

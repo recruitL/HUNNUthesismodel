@@ -1,0 +1,59 @@
+% ==========================================
+%  content/manual-ch07-conclusion.tex  —  第七章 结论
+% ==========================================
+\documentclass[../main-manual.tex]{subfiles}
+\begin{document}
+
+\cleardoublepage
+\thispagestyle{empty}
+\zihao{-4} \songti
+\setlength{\baselineskip}{24pt}
+\RaggedRight
+\setlength{\parindent}{2em}
+\raggedbottom
+
+\chapter{结论} \label{ch:conclusion}
+
+本手册以湖南师范大学学位论文 \LaTeX{} 模板自身作为排版引擎，系统介绍了模板的设计理念、目录结构、使用方法和扩展机制。
+
+\section{模板核心优势}
+
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+	\item \textbf{模块化设计}：15 个独立的样式文件，一个关切一个文件。查找定位快，修改不易出错。
+	\item \textbf{用户友好}：所有用户变量集中在 \path{main.tex} 开头，一行修改即可切换 6 种学位组合。
+	\item \textbf{AI 原生协作}：\path{CLAUDE.md} + \path{custom.tex} 构成了完整的 AI 协作体系，即使是 \LaTeX{} 新手也可以在 AI 助手的帮助下高效完成排版。
+	\item \textbf{Git 友好}：纯文本源码支持版本控制、差异比较、历史回溯和多人协作。
+	\item \textbf{学术规范}：基于 GB/T 7714 参考文献标准，封面格式符合湖南师范大学学位论文要求。
+\end{enumerate}
+
+\section{推荐工作流程}
+
+\begin{enumerate}[label=\textbf{第\arabic*步：}]
+	\item 修改 \path{main.tex} 顶部变量区，填写个人信息。
+	\item 运行 \texttt{latexmk -xelatex main}，确认模板可正常编译。
+	\item 初始化 Git 仓库：\texttt{git init \&\& git add . \&\& git commit -m "初始化"}。
+	\item 逐章写作：复制章节模板、填写内容、编译预览、Git 提交。
+	\item 如遇排版需求，在 \path{custom.tex} 中添加扩展，或请 AI 助手协助。
+	\item 定期将 \path{custom.tex} 的内容整理到对应模块。
+	\item 终稿前完整编译四遍，检查所有交叉引用。
+\end{enumerate}
+
+\section{最佳实践总结}
+
+\begin{tcolorbox}[
+	colback=green!3!white,
+	colframe=green!40!white,
+	title={\centering 学位论文排版最佳实践}
+]
+\begin{enumerate}[label=\textbf{\ding{51}}]
+	\item 变量集中管理，修改前先确认 \path{main.tex} 中是否已有对应变量。
+	\item 新增内容一律走 \path{custom.tex}，不直接改 \path{style/}。
+	\item 每个章节独立文件，利用 \path{subfiles} 独立预览。
+	\item 论文写作初期就启动 Git 版本控制。
+	\item 充分利用 AI 助手处理格式问题，自己专注于内容创作。
+	\item 编译前清理辅助文件（\texttt{latexmk -c}），避免脏数据影响结果。
+	\item 提交终稿前跑四遍完整编译，确保所有引用和目录都正确。
+\end{enumerate}
+\end{tcolorbox}
+
+\end{document}

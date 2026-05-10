@@ -1,0 +1,28 @@
+% ==========================================
+%  style/cover.tex  —  封面与扉页排版命令
+% ==========================================
+
+% --- 固定长度下划线（用于扉页信息栏） ---
+\makeatletter
+\newcommand\dlmu[2][4cm]{\hskip1pt\underline{\hb@xt@ #1{\hss#2\hss}}\hskip3pt}
+\makeatother
+
+% --- 复选框（用于学位类型选择） ---
+% 使用 stmaryrd 宏包提供的 \boxempty 和 \checkmark
+\newcommand\Boxempty{\makebox[1em][l]{$\boxempty$}}
+\newcommand\boxcheck{\makebox[1em][l]{\makebox[1pt][l]{$\boxempty$}$\checkmark$}}
+
+% --- 学位类型快捷命令 ---
+% 在 main.tex 中设定 \degreetype 为 {science} 或 {professional}
+% 在封面 tex 文件中使用 \yourdegree 展开
+\newcommand{\yourdegree}{%
+	\ifx\degreetype\undefined
+		$\boxcheck$ \kaishu{\zihao{3}科学学位} {$\Boxempty$} \kaishu{\zihao{3} 专业学位}% 默认科学学位
+	\else
+		\ifnum\pdfstrcmp{\degreetype}{science}=0
+			$\boxcheck$ \kaishu{\zihao{3}科学学位} {$\Boxempty$} \kaishu{\zihao{3} 专业学位}%
+		\else
+			{$\Boxempty$} \kaishu{\zihao{3}科学学位}  $\boxcheck$ \kaishu{\zihao{3} 专业学位}%
+		\fi
+	\fi
+}

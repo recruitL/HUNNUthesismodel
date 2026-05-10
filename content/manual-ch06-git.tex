@@ -1,0 +1,105 @@
+% ==========================================
+%  content/manual-ch06-git.tex  —  第六章 Git提交
+% ==========================================
+\documentclass[../main-manual.tex]{subfiles}
+\begin{document}
+
+\cleardoublepage
+\thispagestyle{empty}
+\zihao{-4} \songti
+\setlength{\baselineskip}{24pt}
+\RaggedRight
+\setlength{\parindent}{2em}
+\raggedbottom
+
+\chapter{Git 提交} \label{ch:git}
+
+\LaTeX{} 源文件是纯文本，天然适合纳入 Git 等版本控制系统。本章介绍使用 Git 管理学位论文的最佳实践。
+
+\section{初始化仓库}
+
+在模板目录下执行：
+
+\begin{lstlisting}[language=bash, caption={初始化 Git 仓库}]
+cd /path/to/Tex_Model
+git init
+git add .
+git commit -m "初始提交：论文模板"
+\end{lstlisting}
+
+\section{\path{.gitignore} 配置}
+
+本模板提供了预配置的 \path{.gitignore} 文件，自动忽略所有构建产物（\path{.aux}, \path{.bbl}, \path{.log}, \path{.out}, \path{.toc}, \path{.synctex.gz} 等）。
+
+\begin{lstlisting}[caption={.gitignore 关键规则}]
+# LaTeX 构建产物
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# 操作系统
+.DS_Store
+\end{lstlisting}
+
+\textbf{关于 \path{.pdf} 文件}：编译生成的 PDF 是二进制文件，每次提交都会完整存储整个文件，导致仓库体积迅速膨胀。建议不提交 PDF，而是在每次发布时通过 CI/CD 或手动构建生成。如果你需要定期分享 PDF 给导师审阅，可以考虑使用 Git LFS 或单独存储。
+
+\section{提交策略}
+
+\subsection{推荐的提交粒度}
+
+\begin{itemize}
+	\item \textbf{每节一提交}：写完一个 \verb|\section| 后提交，commit message 写"完成 1.2 研究现状"。
+	\item \textbf{每章一提交}：完成整章后做一次合并提交。
+	\item \textbf{修改提交}：修改格式后立即提交（"调整章标题字号为二号"），保持每次提交的原子性。
+\end{itemize}
+
+\subsection{推荐的 commit message 格式}
+
+\begin{lstlisting}[language=bash, caption={提交信息示例}]
+# 新增内容
+git commit -m "新增第三章：有效单体理论框架"
+
+# 修改
+git commit -m "修改封面边距以符合最新格式要求"
+
+# 修复
+git commit -m "修复参考文献中作者名大小写问题"
+
+# 格式调整
+git commit -m "将章标题字体从楷体改为黑体"
+\end{lstlisting}
+
+\section{分支策略}
+
+\begin{enumerate}[label=\textbf{分支\arabic*：}]
+	\item \textbf{\path{main}}：稳定版本，始终可编译通过。
+	\item \textbf{\path{draft/chapter-3}}：在草稿阶段，每个章节一个分支。
+	\item \textbf{\path{review/advisor}}：发送给导师审阅的版本。
+	\item \textbf{\path{final}}：终稿，提交给学校。
+\end{enumerate}
+
+\section{与导师协作}
+
+\begin{itemize}
+	\item 将仓库推送到私有 Git 平台（如 GitHub Private、Gitee 私有仓库）。
+	\item 每次送审前创建带日期的 tag（如 \path{v2026-05-15}）。
+	\item 导师可通过 Issues 或 Pull Request 方式提出修改意见。
+	\item 对于不熟悉 Git 的导师，可将 PDF 单独发送，同时在仓库中保留对应的源码快照。
+\end{itemize}
+
+\section{回滚与恢复}
+
+Git 的最大价值之一是允许你大胆修改而不怕丢失内容：
+
+\begin{lstlisting}[language=bash, caption={常用回滚操作}]
+git log --oneline              # 查看提交历史
+git diff HEAD~1                # 查看上一次提交的变更
+git checkout HEAD~1 -- main.tex  # 恢复某个文件的旧版本
+git revert <commit-hash>       # 撤销某次提交
+\end{lstlisting}
+
+\end{document}

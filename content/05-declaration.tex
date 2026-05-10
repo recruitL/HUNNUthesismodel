@@ -1,0 +1,119 @@
+% ==========================================
+%  content/05-declaration.tex  —  成果、致谢、原创性声明
+%  可独立编译: xelatex 05-declaration.tex
+% ==========================================
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+% ==========================================
+%  攻读学位期间完成的论文
+%  ★ 如果不需要此章节（如本科论文），删除下面直到“致谢”之前的所有行
+% ==========================================
+\cleardoublepage
+\begin{center}
+	{\heiti \zihao{3} 攻读\youreduction 士学位期间完成的论文}
+\end{center}
+\vspace{0.1cm}
+\songti \zihao{4}
+\phantomsection\addcontentsline{toc}{section}{\heiti \zihao{-4} 攻读\youreduction 士学位期间完成的论文}\tolerance=500
+
+{
+	\zihao{-4}
+	\begin{enumerate}[label=\textbf{[\arabic*]}]
+		% 按格式填写论文：
+		% \item 作者1, 作者2, \& 作者3. 论文标题. 期刊名 卷号, 页码 (年份).
+		\item First Author, Second Author, \& Third Author.
+			Paper title here.
+			\textit{Journal Name} \textbf{Volume}, Page (Year).
+		\item ...
+	\end{enumerate}
+}
+
+% ==========================================
+%  致谢
+% ==========================================
+\cleardoublepage
+\begin{center}
+	{\heiti \zihao{3} 致\hspace{2em}谢}
+\end{center}
+\vspace{0.5cm}
+\phantomsection\addcontentsline{toc}{section}{\heiti \zihao{-4} 致\hspace{2em}谢}\tolerance=500
+
+\begin{spacing}{1.5}
+	\songti \zihao{-4}
+
+	在此处填写致谢内容。
+
+	\rightline{\kaishu \zihao{-3} \yourname}
+	\rightline{\yourtitledate}
+\end{spacing}
+
+% ==========================================
+%  原创性声明与版权使用授权书
+% ==========================================
+\cleardoublepage
+\newgeometry{left=3.4cm,right=3.4cm,top=4.5cm,bottom=2.5cm,headsep=25pt}
+\thispagestyle{empty}
+
+\begin{spacing}{1.5}
+
+	% --- 原创性声明 ---
+	\begin{center}
+		\zihao{3} \heiti
+		\universityname 学位论文原创性声明
+	\end{center}
+	\phantomsection\addcontentsline{toc}{section}{\heiti \zihao{-4} \universityname 学位论文原创性声明}\tolerance=500
+
+	\begin{flushleft}
+		\zihao{3} \songti
+		\qquad
+		本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研究工作所取得的成果。
+		除文中已经注明引用的内容外，本论文不含任何其他个人或集体已经发表或撰写过的作品成果。
+		对本文的研究做出重要贡献的个人和集体，均已在文中以明确的方式标明。
+		本人完全意识到本声明的法律结果由本人承担。
+	\end{flushleft}
+
+	\begin{center}
+		\begin{multicols}{2}
+			\balance
+			\songti \zihao{3}
+			\makebox[8em][s]{学位论文作者签名}:  \\[8em]
+			\makebox[8em][s]{\hspace{\fill}年\hspace{\fill}月\hspace{\fill}日} \\[0em]
+		\end{multicols}
+	\end{center}
+	\vskip 1cm
+
+	% --- 版权使用授权书 ---
+	\begin{center}
+		\zihao{3} \heiti
+		\universityname 学位论文版权使用授权书
+	\end{center}
+	\phantomsection\addcontentsline{toc}{section}{\heiti \zihao{-4} \universityname 学位论文版权使用授权书}\tolerance=500
+
+	\begin{flushleft}
+		\zihao{3} \songti
+		\qquad
+		本学位论文作者完全了解学校有关保留、使用学位论文的规定，
+		研究生在校攻读学位期间论文工作的知识产权单位属\universityname。
+		同意学校保留并向国家有关部门或机构送交论文的复印件和电子版，
+		允许论文被查阅和借阅。本人授权\universityname 可以将本学位论文的全部或部分内容
+		编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
+	\end{flushleft}
+	\vskip 0.5em
+
+	\begin{center}
+		\begin{multicols}{2}
+			\balance
+			\songti \zihao{3}
+			\makebox[5em][s]{作者签名：}  \\
+			\makebox[5em][s]{导师签名：}  \\
+			\makebox[5em][s]{日期：\hspace{\fill}} 年 \quad 月 \quad 日 \\
+			\makebox[5em][s]{日期：\hspace{\fill}} 年 \quad 月 \quad 日 \\
+		\end{multicols}
+	\end{center}
+
+\end{spacing}
+
+\restoregeometry
+
+\end{document}

@@ -1,0 +1,86 @@
+% ============================================================
+%  湖南师范大学学位论文模板 — 技术使用手册
+%  编译: xelatex main-manual; bibtex main-manual; xelatex main-manual; xelatex main-manual
+% ============================================================
+\documentclass[10pt,openany,UTF8]{ctexbook}
+
+% ==========================================
+%  手册信息
+% ==========================================
+
+\newcommand{\youreduction}{博}
+\newcommand{\yourtitlenamechinese}{湖南师范大学学位论文模板使用手册}
+\newcommand{\yourtitlenameenglish}{User Manual for Hunan Normal University Thesis Template}
+\newcommand{\degreetype}{science}
+\newcommand{\yoursubject}{理学}
+\newcommand{\yourxuewei}{\yoursubject\youreduction 士学位}
+\ifnum\pdfstrcmp{\degreetype}{professional}=0
+  \newcommand{\youreduclass}{专 \quad 业 \quad 学 \quad 位 \quad \youreduction\quad 士\quad 论\quad 文}
+\else
+  \newcommand{\youreduclass}{学 \quad 术 \quad 学 \quad 位 \quad \youreduction\quad 士\quad 论\quad 文}
+\fi
+
+\newcommand{\yourmajor}{计算机科学与技术}
+\newcommand{\yoursubmajor}{软件工程}
+\newcommand{\yourresearchorient}{学术文档排版与模板工程}
+\newcommand{\yourname}{YL}
+\newcommand{\yoursupervisorname}{马克思\quad 教授}
+\newcommand{\yourstudentnumber}{20260511}
+\newcommand{\yourclassnumber}{TP391}
+\newcommand{\universityname}{湖南师范大学}
+\newcommand{\universityschoolcode}{10542}
+\newcommand{\universityaddress}{湖南师范大学学位评定委员会办公室}
+\newcommand{\yourtitledate}{二〇二六年五月}
+\newcommand{\yourpapernumber}{}
+
+% ==========================================
+%  样式文件
+% ==========================================
+\input{style/packages.tex}
+\input{style/fonts.tex}
+\input{style/layout.tex}
+\input{style/cover.tex}
+\input{style/abstract.tex}
+\input{style/toc.tex}
+\input{style/headers.tex}
+\input{style/chapters.tex}
+\input{style/theorems.tex}
+\input{style/listings.tex}
+\input{style/bib.tex}
+\input{style/appendix.tex}
+\input{style/commands.tex}
+\input{style/custom.tex}
+
+% 使 \path 在章节标题和表格标题等移动参数中也可用
+\let\oldpath\path
+\protected\def\path{\oldpath}
+
+\hypersetup{
+	pdftitle={\yourtitlenamechinese},
+	pdfauthor={\yourname},
+	pdfsubject={学位论文模板使用手册},
+	pdfcreator={XeLaTeX},
+	bookmarksnumbered=true,
+	bookmarksopen=true,
+	pdfborder={0 0 0},
+}
+
+\begin{document}
+
+\subfile{content/manual-cover}
+
+\subfile{content/manual-abstract}
+
+\subfile{content/manual-ch01-intro}
+\subfile{content/manual-ch02-design}
+\subfile{content/manual-ch03-usage}
+\subfile{content/manual-ch04-ai}
+\subfile{content/manual-ch05-updates}
+\subfile{content/manual-ch06-git}
+\subfile{content/manual-ch07-conclusion}
+
+\subfile{content/manual-appendix}
+
+\subfile{content/manual-declaration}
+
+\end{document}

@@ -1,0 +1,25 @@
+% ==========================================
+%  style/abstract.tex  —  中英文摘要环境
+% ==========================================
+
+% 摘要标题
+\newcommand{\enabstractname}{\zihao{4} ABSTRACT}
+\newcommand{\cnabstractname}{\zihao{4} \heiti 摘\hspace*{2em}要}
+
+% 英文摘要环境
+\newenvironment{enabstract}{%
+	\par\zihao{-4}
+	\noindent\mbox{}\hfill{\bfseries \zihao{-4} \enabstractname}\hfill\mbox{}\par
+	\vskip 2.5ex
+}{%
+	\par\vskip 2.5ex
+}
+
+% 中文摘要环境
+\newenvironment{cnabstract}{%
+	\par\songti\zihao{-4}
+	\noindent\mbox{}\hfill{\heiti \zihao{-4} \cnabstractname}\hfill\mbox{}\par
+	\vskip 2.5ex
+}{%
+	\par\vskip 2.5ex
+}

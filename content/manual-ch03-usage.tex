@@ -1,0 +1,432 @@
+% ==========================================
+%  content/manual-ch03-usage.tex  —  第三章 使用说明
+% ==========================================
+\documentclass[../main-manual.tex]{subfiles}
+\begin{document}
+
+\cleardoublepage
+\thispagestyle{empty}
+\zihao{-4} \songti
+\setlength{\baselineskip}{24pt}
+\RaggedRight
+\setlength{\parindent}{2em}
+\raggedbottom
+
+\chapter{使用说明} \label{ch:usage}
+
+本章提供从零开始的完整操作指南。读者可一边阅读一边在模板源文件中实践。
+
+\section{快速开始}
+
+\subsection{环境准备}
+
+\begin{enumerate}[label=\textbf{第\arabic*步：}]
+	\item \textbf{安装 \TeX{} 发行版}：macOS 用户安装 Mac\TeX{}（\url{https://tug.org/mactex/}），Windows 用户安装 \TeX{} Live，Linux 用户通过包管理器安装 \path{texlive-full}。
+	\item \textbf{确认中文字体}：模板依赖系统自带的宋体、黑体、楷体、仿宋。macOS 预装这些字体。Windows/Linux 若缺少华文行楷（STXingkai），可将 \path{style/fonts.tex} 中的字体名替换为系统可用的楷体。
+	\item \textbf{获取模板}：将整个模板目录复制到你的工作目录。
+\end{enumerate}
+
+\subsection{编译}
+
+打开终端，进入模板目录，执行：
+
+\begin{lstlisting}[language=bash, caption={一键编译（推荐）}]
+latexmk -xelatex main
+\end{lstlisting}
+
+或手动执行四步编译：
+
+\begin{lstlisting}[language=bash, caption={手动编译}]
+xelatex main
+bibtex main
+xelatex main
+xelatex main
+\end{lstlisting}
+
+编译成功后，目录下生成 \path{main.pdf}。
+
+\subsection{单章预览}
+
+每个 \path{content/} 下的文件使用了 \path{subfiles} 宏包，可独立编译：
+
+\begin{lstlisting}[language=bash, caption={独立编译第三章}]
+cd content
+xelatex 03-chapter1
+\end{lstlisting}
+
+\section{填写个人信息}
+
+打开 \path{main.tex}，在文件开头找到"用户自定义变量"区域。以下是一个完整的博士论文配置示例：
+
+\begin{lstlisting}[language=TeX, caption={个人信息配置示例}]
+% 学历层次: 博 / 硕 / 学（本科）
+\newcommand{\youreduction}{博}
+
+% 学位类型: science = 学术学位, professional = 专业学位
+\newcommand{\degreetype}{science}
+
+% 学科门类
+\newcommand{\yoursubject}{理学}
+
+% 论文标题
+\newcommand{\yourtitlenamechinese}{基于后闵可夫斯基近似的有效单体理论}
+\newcommand{\yourtitlenameenglish}{Effective-One-Body Theory ...}
+
+% 学科信息
+\newcommand{\yourmajor}{物理学}
+\newcommand{\yoursubmajor}{理论物理}
+\newcommand{\yourresearchorient}{理论物理}
+
+% 作者与导师
+\newcommand{\yourname}{龙\quad 胜}
+\newcommand{\yoursupervisorname}{荆继良\quad 教授}
+\end{lstlisting}
+
+\section{学位类型切换}
+
+模板支持3种学历层次 × 2种学位类型 = \textbf{6种组合}，通过修改两个变量即可切换：
+
+\begin{lstlisting}[language=TeX, caption={切换至硕士专业学位}]
+\newcommand{\youreduction}{硕}            % 博 → 硕
+\newcommand{\degreetype}{professional}    % science → professional
+\end{lstlisting}
+
+切换后以下内容自动适配：
+\begin{itemize}
+	\item 封面大字："学术学位博士学位论文" $\to$ "专业学位硕士学位论文"
+	\item 扉页学位类型复选框
+	\item 页眉文字
+	\item 学位全称（\verb|\yourxuewei|）
+\end{itemize}
+
+\subsection{硕士额外操作}
+
+硕士论文如需在扉页显示学位类型复选框和论文编号，打开 \path{content/01-cover.tex}，在扉页部分找到被注释的两行并取消注释：
+
+\begin{lstlisting}[language=TeX, caption={启用学位类型复选框与论文编号}]
+% 取消下面两行的注释
+\makebox[10em][s]{\kaishu \zihao{3}{学\hspace{\fill}位\hspace{\fill}类\hspace{\fill}型}}
+	\dlmu[7cm]{\yourdegree} \\[1.5em]
+\makebox[10em][s]{\kaishu \zihao{3}{论\hspace{\fill}文\hspace{\fill}编\hspace{\fill}号}}
+	\dlmu[7cm]{\yourpapernumber} \\[1.5em]
+\end{lstlisting}
+
+\subsection{本科额外操作}
+
+本科（学士）论文通常没有"攻读学位期间完成的论文"章节。打开 \path{content/05-declaration.tex}，删除从"攻读学位期间完成的论文"到"致谢"之前的所有内容即可。
+
+\section{添加章节}
+
+\subsection{创建新章节}
+
+\begin{enumerate}[label=\textbf{第\arabic*步：}]
+	\item 复制 \path{content/03-chapter1.tex} 为 \path{content/06-chapter2.tex}。
+	\item 修改文件内容——至少需要修改 \verb|\chapter{...}| 标题。
+	\item 在 \path{main.tex} 的正文区域添加一行：
+\begin{lstlisting}[language=TeX]
+\subfile{content/06-chapter2}
+\end{lstlisting}
+\end{enumerate}
+
+\subsection{章节文件模板}
+
+每个章节文件的头部需要包含以下样板代码（直接复制 \path{03-chapter1.tex} 即可）：
+
+\begin{lstlisting}[language=TeX, caption={章节文件基本结构}]
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\cleardoublepage
+\thispagestyle{empty}
+\zihao{-4} \songti
+\setlength{\baselineskip}{24pt}
+\RaggedRight
+\setlength{\parindent}{2em}
+\raggedbottom
+
+\chapter{章节标题} \label{ch:xxx}
+
+% 正文内容...
+
+\end{document}
+\end{lstlisting}
+
+\section{插入图表与公式}
+
+\subsection{插入图片}
+
+\begin{lstlisting}[language=TeX, caption={插入单张图片}]
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figure/example.png}
+	\caption{图片标题}
+	\label{fig:example}
+\end{figure}
+\end{lstlisting}
+
+使用 \verb|\figref{fig:example}| 引用图片，将生成"图~1.1"（带超链接）。
+
+\subsection{插入子图}
+
+\begin{lstlisting}[language=TeX, caption={使用 subcaption 插入子图}]
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{figure/left.png}
+		\caption{左子图}
+		\label{fig:sub1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{figure/right.png}
+		\caption{右子图}
+		\label{fig:sub2}
+	\end{subfigure}
+	\caption{总标题}
+	\label{fig:combined}
+\end{figure}
+\end{lstlisting}
+
+\subsection{插入表格}
+
+本模板已加载 \path{booktabs}（三线表）、\path{multirow}（多行合并）、\path{longtable}（跨页表格）、\path{makecell}（单元格换行）、\path{diagbox}（斜线表头）等宏包。推荐使用三线表样式：
+
+\begin{lstlisting}[language=TeX, caption={三线表示例}]
+\begin{table}[htbp]
+	\centering
+	\caption{表格标题}
+	\label{tab:example}
+	\begin{tabular}{lcc}
+		\toprule
+		列1 & 列2 & 列3 \\
+		\midrule
+		数据1 & 数据2 & 数据3 \\
+		数据4 & 数据5 & 数据6 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+\end{lstlisting}
+
+\subsection{插入公式}
+
+行内公式使用 \texttt{\char`\$...\char`\$}，行间公式使用 \texttt{equation} 或 \texttt{align} 环境：
+
+\begin{lstlisting}[language=TeX, caption={多行对齐公式}]
+\begin{align}
+	R_{\mu\nu} - \frac{1}{2} g_{\mu\nu} R &= 8\pi G \, T_{\mu\nu} , \\
+	\nabla_{\mu} T^{\mu\nu} &= 0 .
+\end{align}
+\end{lstlisting}
+
+\section{使用定理环境}
+
+本模板预定义了以下定理环境，全部按章编号：
+
+\begin{table}[htbp]
+	\centering
+	\caption{预定义定理环境一览}
+	\label{tab:theorems}
+	\begin{tabular}{lll}
+		\toprule
+		环境名 & 中文标题 & 样式 \\
+		\midrule
+		\path{theorem} & 定理 & thmstyle（灰蓝色） \\
+		\path{definition} & 定义 & defstyle（深蓝色） \\
+		\path{lemma} & 引理 & defstyle \\
+		\path{corollary} & 推论 & defstyle \\
+		\path{proposition} & 问题 & prostyle（灰紫色） \\
+		\path{example} & 例题 & prostyle \\
+		\path{remark} & 注 & thmstyle \\
+		\path{proof} & 证明 & 黑体标题 + 宋体正文 \\
+		\path{solution} & 解 & 黑体标题 + 仿宋正文 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+使用示例：
+
+\begin{lstlisting}[language=TeX, caption={定理环境使用}]
+\begin{theorem}[费马大定理]
+当 $n \geq 3$ 时，方程 $x^n + y^n = z^n$ 没有正整数解。
+\end{theorem}
+
+\begin{definition}[黑洞]
+一个时空区域，其中引力场如此之强，以至于任何物质和辐射都无法从中逃脱。
+\end{definition}
+
+\begin{proof}
+假设... 因此得证。
+\end{proof}
+\end{lstlisting}
+
+\section{参考文献管理}
+
+\subsection{编辑 .bib 文件}
+
+参考文献以 Bib\TeX{} 格式存放在 \path{reference.bib} 文件中。典型的条目格式如下：
+
+\begin{lstlisting}[language=TeX, caption={BibTeX 条目示例}]
+@article{Author2024,
+  author  = {Author, First and Author, Second},
+  title   = {Paper Title},
+  journal = {Journal Name},
+  volume  = {123},
+  pages   = {456--789},
+  year    = {2024},
+}
+\end{lstlisting}
+
+\subsection{引用文献}
+
+在正文中使用 \verb|\cite{Author2024}| 引用文献。编译后生成上标编号（如$^{\text{[1]}}$）。
+
+\subsection{切换引用制式}
+
+编辑 \path{style/bib.tex}，切换 \verb|\bibliographystyle|：
+
+\begin{lstlisting}[language=TeX, caption={切换参考文献制式}]
+% 顺序编码制（默认，如 [1]）
+\bibliographystyle{gbt7714-numerical}
+
+% 著者-出版年制（如 张三, 2024）
+% \bibliographystyle{gbt7714-author-year}
+\end{lstlisting}
+
+\section{参考文献管理进阶}
+
+\subsection{\texttt{\textbackslash bibitem} 与 Bib\TeX{} 的对比}
+
+\LaTeX{} 提供了两种管理参考文献的方式：
+
+\begin{description}
+	\item[\texttt{\textbackslash bibitem}] 手工方式。在 \texttt{thebibliography} 环境中逐条用 \verb|\bibitem{key}| 编写文献。优点是直观、不需要额外工具；缺点是每次引用都要手动维护编号顺序和格式一致性。适合参考文献极少（少于10条）且不常变动的文档。
+	\item[Bib\TeX{}（.bib 数据库）] 自动化方式。将所有文献信息存储在 \texttt{.bib} 纯文本数据库中，由 Bib\TeX{} 引擎自动提取被引条目并按指定格式排版。优点是条目可复用、格式统一、编号自动维护。本模板采用此方式。
+\end{description}
+
+\begin{table}[htbp]
+	\centering
+	\caption{\texttt{bibitem} vs Bib\TeX{} 对比}
+	\label{tab:bibitem-vs-bibtex}
+	\begin{tabular}{lcc}
+		\toprule
+		特性 & \texttt{bibitem} & Bib\TeX{} \\
+		\midrule
+		条目管理 & 手工编写 & 数据库存储 \\
+		格式一致性 & 需人工保证 & 自动保证 \\
+		条目复用 & 复制粘贴 & 直接引用 \\
+		编号维护 & 手动调整 & 自动排序 \\
+		适用场景 & 短文档、简单引用 & 学位论文、期刊投稿 \\
+		与 Zotero 协作 & 不支持 & 完美支持 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{从 INSPIRE-HEP 获取 Bib\TeX{} 条目}
+
+对于物理学研究者，INSPIRE-HEP（高能物理信息系统）\cite{INSPIRE2025} 是最便捷的 Bib\TeX{} 来源：
+
+\begin{enumerate}[label=\textbf{第\arabic*步：}]
+	\item 打开 \url{https://inspirehep.net}，搜索目标论文。
+	\item 在论文详情页，点击页面底部的 \textbf{Cite} 按钮。
+	\item 在弹出的格式选项中，选择 \textbf{BibTeX}。
+	\item 复制生成的 Bib\TeX{} 条目，粘贴到 \path{reference.bib} 文件中。
+\end{enumerate}
+
+INSPIRE-HEP 覆盖了高能物理、天体物理、引力物理等领域几乎所有正式发表的论文和预印本，且 Bib\TeX{} 条目质量极高（作者名已规范化、期刊名缩写准确）。对于其他学科，类似的服务包括：
+
+\begin{itemize}
+	\item \textbf{Google Scholar}：搜索结果中点击"引用" $\to$ "BibTeX"。
+	\item \textbf{dblp}（\url{https://dblp.org}）：计算机科学领域，每条记录底部有 Bib\TeX{} 导出链接。
+	\item \textbf{DOI 查询}：通过 \url{https://doi.org} 输入 DOI，结合 \url{https://citation.crosscite.org} 获取 Bib\TeX{} 格式。
+\end{itemize}
+
+\subsection{与 Zotero 联动管理文献}
+
+Zotero\cite{Zotero2025} 是开源免费的文献管理软件，可以与 \LaTeX{} 实现无缝联动：
+
+\begin{enumerate}[label=\textbf{第\arabic*步：}]
+	\item \textbf{安装 Zotero}：从 \url{https://www.zotero.org} 下载并安装。
+	\item \textbf{安装 Better BibTeX 插件}：从 \url{https://retorque.re/zotero-better-bibtex} 下载 \texttt{.xpi} 文件，在 Zotero 中通过 Tools $\to$ Add-ons 安装\cite{BetterBibTeX2025}。
+	\item \textbf{设置自动导出}：在 Zotero 中选择你的文献合集，右键 $\to$ \textbf{Export Collection}，格式选择 \textbf{Better BibTeX}，勾选 \textbf{Keep updated}（自动保持更新）。
+	\item \textbf{导出到模板}：将导出的 \texttt{.bib} 文件保存到模板目录，在 \path{main.tex} 中修改 \texttt{\char`\\bibliography\{...\}} 引用该文件。
+	\item \textbf{日常使用}：在浏览器中用 Zotero Connector 一键抓取文献信息，Zotero 自动同步到 \texttt{.bib} 文件，\LaTeX{} 编译时自动使用最新条目。
+\end{enumerate}
+
+\begin{tcolorbox}[
+	colback=yellow!3!white,
+	colframe=yellow!40!white,
+	title={\centering Zotero + Better BibTeX 的优势}
+]
+\begin{itemize}
+	\item \textbf{一次录入，多处使用}：在浏览器中一键抓取文献，自动生成符合 GB/T 7714 的 Bib\TeX{} 条目。
+	\item \textbf{Citation Key 自定义}：Better BibTeX 支持自定义 citation key 格式（如 \texttt{Author2024}），比原始 Bib\TeX{} 导出的随机 key 更易记忆和引用。
+	\item \textbf{自动同步}：Zotero 中修改文献信息后，\texttt{.bib} 文件自动更新，无需手动维护。
+	\item \textbf{附件管理}：Zotero 可存储 PDF 全文、笔记、标签，与 \LaTeX{} 写作形成完整的知识工作流。
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{重要提示}：本模板使用 GB/T 7714—2015 参考文献标准\cite{GBT7714-2015}，由 \path{gbt7714} 宏包自动处理格式。无论你从哪个来源获取 Bib\TeX{} 条目，编译时都会自动转换为符合国标的格式。
+
+\section{常见自定义场景}
+
+\subsection{添加新宏包}
+
+\textbf{不要直接修改 \path{style/packages.tex}}。在 \path{style/custom.tex} 的"自定义宏包"区添加：
+
+\begin{lstlisting}[language=TeX, caption={通过 custom.tex 添加宏包}]
+% 在 style/custom.tex 中添加
+\usepackage{siunitx}    % 单位排版
+\usepackage{physics}    % 物理符号快捷命令
+\end{lstlisting}
+
+\subsection{定义个人常用命令}
+
+在 \path{style/custom.tex} 的"自定义命令与环境"区添加：
+
+\begin{lstlisting}[language=TeX, caption={自定义命令示例}]
+\newcommand{\R}{\mathbb{R}}       % 实数集
+\newcommand{\pdm}[2]{\frac{\partial #1}{\partial #2}}  % 偏导
+\end{lstlisting}
+
+\subsection{修改封面字体}
+
+如需将封面华文行楷替换为其他字体，在 \path{style/custom.tex} 的"自定义格式覆盖"区添加：
+
+\begin{lstlisting}[language=TeX, caption={覆盖封面字体}]
+% 将 \huawenxingkai 重定义为楷体
+\renewcommand{\huawenxingkai}{\kaishu}
+\end{lstlisting}
+
+\subsection{修改章标题格式}
+
+\begin{lstlisting}[language=TeX, caption={覆盖章标题字号}]
+\ctexset{
+	chapter = {
+		format = \heiti\centering\zihao{-2}  % 改为黑体二号
+	}
+}
+\end{lstlisting}
+
+\section{编译问题排查}
+
+% 旋转90度以适应宽表格
+\begin{sidewaystable}
+		\centering
+	\caption{常见编译错误及解决方法}
+	\label{tab:troubleshoot}
+	\begin{tabular}{lp{6cm}p{5cm}}
+		\toprule
+		错误信息 & 可能原因 & 解决方法 \\
+		\midrule
+		\texttt{! LaTeX Error: File '...' not found} & 缺失文件或路径错误 & 检查 \verb|\input| 或 \verb|\includegraphics| 路径 \\
+		\texttt{! Undefined control sequence} & 命令未定义（拼写错误或未加载宏包） & 检查拼写，确认相关宏包已加载 \\
+		\texttt{! LaTeX Error: There's no line here to end} & 在不该断行的地方使用了 \verb|\\| & 删除多余的 \verb|\\| \\
+		\texttt{Warning: There were undefined references} & 需重新编译 & 再跑一遍 xelatex \\
+		\texttt{Warning: Citation '...' undefined} & 未在 \path{.bib} 中定义或需运行 BibTeX & 检查 \path{.bib} 条目，运行 bibtex \\
+		\bottomrule
+	\end{tabular}
+\end{sidewaystable}
+
+
+
+\end{document}

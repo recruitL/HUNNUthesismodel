@@ -1,0 +1,39 @@
+% ==========================================
+%  style/toc.tex  —  目录排版样式
+%  基于 tocloft 宏包
+% ==========================================
+
+% 目录中的超链接（隐藏边框）
+\addtocontents{toc}{\protect\hypersetup{hidelinks}}
+\addtocontents{toe}{\protect\hypersetup{hidelinks}}
+
+% 辅助留白
+\newcommand\HUNNUspace{\phantom{LONG}}
+
+% 目录点线设置
+\renewcommand{\cftchapdotsep}{0.5}
+\renewcommand{\cftdot}{$\cdot$}
+\renewcommand{\cftdotsep}{1.5}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+
+% 段间距
+\setlength{\cftbeforesecskip}{0pt}
+\setlength{\cftbeforesubsecskip}{0pt}
+
+% 目录标题字体
+\renewcommand\cftchapfont{\songti \bfseries \zihao{4}}
+\renewcommand\cftsecfont{\songti \zihao{4}}
+\renewcommand\cftsubsecfont{\songti \zihao{-4}}
+
+% 目录标题段间距
+\setlength\cftbeforetoctitleskip{2pt}
+\setlength\cftaftertoctitleskip{2pt}
+
+% 不缩进
+\setlength{\cftsubsecindent}{0em}
+\setlength{\cftsubsubsecindent}{0em}
+\setlength{\cftsecindent}{0em}
+
+% 目录页码不加粗
+\renewcommand{\cftchappagefont}{}

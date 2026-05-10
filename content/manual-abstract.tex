@@ -1,0 +1,56 @@
+% ==========================================
+%  content/manual-abstract.tex  —  手册摘要
+% ==========================================
+\documentclass[../main-manual.tex]{subfiles}
+\begin{document}
+
+\renewcommand{\baselinestretch}{1.5}
+\pagenumbering{Roman}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[CE]{\songti{\zihao{5} 学位论文模板使用手册}}
+\fancyhead[CO]{\songti{\zihao{5} \yourtitlenamechinese}}
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% 中文摘要
+\phantomsection\addcontentsline{toc}{chapter}{\heiti \zihao{4} 摘 \hspace*{1em} 要}\tolerance=500
+
+\begin{cnabstract}
+	{
+本手册基于湖南师范大学学位论文 \LaTeX 模板编写，旨在帮助用户快速掌握模板的使用方法，降低学术论文排版的学习成本。手册以模板自身作为排版引擎，通过实际示例演示了从个人信息填写、章节组织、图表插入到参考文献管理的完整流程。
+
+手册涵盖模板的设计思路与目录结构、各个样式模块的功能说明、本/硕/博三种学历层次与学术/专业两种学位类型的切换方式，以及通过 \texttt{style/custom.tex} 扩展模板的规范方法。此外，手册还介绍了如何利用 AI 助手（如 Claude Code）配合 \texttt{CLAUDE.md} 文件进行协作排版，以及如何使用 Git 对论文进行版本控制。
+
+本手册不仅是一份使用说明，更是一个活生生的模板示例——读者在阅读本手册 PDF 的同时，其所见的排版效果正是由本模板生成的。
+
+		\vspace{0.5cm}
+		\par {\heiti \zihao{-4} 关键字: \LaTeX 模板、学位论文排版、湖南师范大学、AI 辅助写作、技术手册}
+	}
+\end{cnabstract}
+
+\cleardoublepage
+
+% 英文摘要
+\phantomsection\addcontentsline{toc}{chapter}{\textbf{\zihao{4}ABSTRACT}}\tolerance=500
+
+\begin{enabstract}
+	{
+This manual is written based on the Hunan Normal University dissertation \LaTeX{} template, aiming to help users quickly master the template and reduce the learning cost of academic typesetting. Using the template itself as the typesetting engine, the manual demonstrates the complete workflow from personal information entry, chapter organization, figure/table insertion, to bibliography management through practical examples.
+
+The manual covers the template's design philosophy and directory structure, functional descriptions of each style module, switching between bachelor's/master's/doctoral degree levels and academic/professional degree types, and standardized methods for extending the template via \path{style/custom.tex}. Additionally, it introduces how to collaborate with AI assistants (such as Claude Code) using the \path{CLAUDE.md} file for typesetting, and how to use Git for version control of the thesis.
+
+This manual is not only a usage guide but also a living template example — the typesetting effects readers see in this PDF are exactly what this template produces.
+
+		\vspace{0.5cm}
+		\par {\bfseries {\zihao{-4} Keywords: \LaTeX{} template, dissertation typesetting, Hunan Normal University, AI-assisted writing, technical manual}}
+	}
+\end{enabstract}
+
+% 目录
+\cleardoublepage
+\begin{spacing}{2}
+	\centering{\tableofcontents}
+\end{spacing}
+
+\end{document}

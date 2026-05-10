@@ -1,0 +1,129 @@
+% ==========================================
+%  content/manual-ch04-ai.tex  —  第四章 AI交互及AI Agent代理
+% ==========================================
+\documentclass[../main-manual.tex]{subfiles}
+\begin{document}
+
+\cleardoublepage
+\thispagestyle{empty}
+\zihao{-4} \songti
+\setlength{\baselineskip}{24pt}
+\RaggedRight
+\setlength{\parindent}{2em}
+\raggedbottom
+
+\chapter{AI 交互及 AI Agent 代理} \label{ch:ai}
+
+本模板在设计之初就考虑了与 AI 编程助手（如 Claude Code、GitHub Copilot 等）的协作场景。通过规范的接口文件，AI 助手可以理解模板结构、按规则执行操作、并帮助用户完成排版任务。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{figure/dsex.png}
+	\caption{本手册编写过程中 DeepSeek V4 API 的实际消耗数据。在约六个小时的开发周期中，累计消耗约五千万 tokens，费用约人民币 3 元。AI 辅助开发的成本效益正在以惊人的速度提升。}
+	\label{fig:dsex}
+\end{figure}
+
+以本手册的编写为例：在 Claude Code + DeepSeek API 的协助下，从目录结构设计到七章正文撰写、从参考文献整理到数十轮格式调试，全部在三天内完成，总消耗约八千万 tokens，API 费用仅约 3 元人民币（\figref{fig:dsex}）。这种低成本、高效率的 AI 协作模式，正在深刻改变学术文档排版的工作方式。
+
+\section{\path{CLAUDE.md} 的作用与机制}
+
+\path{CLAUDE.md} 是模板根目录下的 AI 协作指南文件。Claude Code 在启动时会自动读取该文件，将其作为项目级别的"系统指令"注入对话上下文。
+
+该文件包含以下关键信息：
+
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+	\item \textbf{项目概述}：告诉 AI 这是一个湖南师范大学学位论文 \LaTeX{} 模板。
+	\item \textbf{设计原则}：样式与内容分离、模块化、用户通过 \path{custom.tex} 扩展。
+	\item \textbf{文件结构}：15 个样式模块的位置与功能说明。
+	\item \textbf{6 条操作规则}：AI 在新增宏包、定义命令、格式覆盖、整理 \path{custom.tex}、添加章节、编译验证等场景下的标准操作流程。
+	\item \textbf{迁移映射表}：当 \path{custom.tex} 内容积累到需要整理时，AI 按此表将命令归类到对应模块。
+	\item \textbf{用户偏好}：不加无用注释、不创建多余文档、中文字体要求等。
+\end{enumerate}
+
+通过 \path{CLAUDE.md}，即使用户不熟悉模板的模块划分，也能借助 AI 助手完成复杂的排版操作。AI 会自动判断新增内容应该放在 \path{custom.tex} 还是直接修改对应的模块文件。
+
+\section{\path{custom.tex} 工作流程}
+
+\path{style/custom.tex} 是用户与 AI 协作的核心接口。其工作流程设计如下：
+
+\begin{enumerate}[label=\textbf{阶段\arabic*：}]
+	\item \textbf{自由扩展}：用户通过自然语言告诉 AI 需要什么（"我要用 siunitx 宏包"、"定义一个 \verb|\pdv| 偏导命令"）。AI 将所有新增内容写入 \path{custom.tex} 的对应分区。
+	\item \textbf{积累与使用}：随着论文写作推进，\path{custom.tex} 逐渐积累了用户的个性化定义。此时用户无需关心这些命令的组织方式。
+	\item \textbf{主动整理}：当 \path{custom.tex} 超过约 80 行或在一个会话结束时，AI 会主动检查其内容，按照 \path{CLAUDE.md} 中的迁移映射表将可归类的命令迁移到对应的样式模块，并在 \path{custom.tex} 中留下迁移记录注释。
+\end{enumerate}
+
+\section{AI 操作规则详解}
+
+\path{CLAUDE.md} 中定义了 6 条 AI 操作规则，以下是各规则的详细说明：
+
+\subsection{规则 1：新增宏包}
+
+当用户说"我要用 \path{siunitx} 宏包"时，AI 将 \verb|\usepackage{siunitx}| 添加到 \path{custom.tex} 的"自定义宏包"区，而非 \path{packages.tex}。这避免了用户需要理解 \path{packages.tex} 内部 8 个功能组的分类逻辑。
+
+\subsection{规则 2：新增命令/环境}
+
+当用户说"定义一个 \verb|\R| 表示实数集"时，AI 将定义写入 \path{custom.tex} 的"自定义命令与环境"区。如果该命令明显属于已有模块（如新的数学算子应归入 \path{commands.tex}），AI 会询问用户是否直接放到对应模块。
+
+\subsection{规则 3：格式覆盖}
+
+当用户说"把章标题改成黑体"时，AI 先定位是 \path{chapters.tex} 中的 \verb|\ctexset| 控制的。如果是基础设置变更，直接修改模块文件；如果是个人偏好覆盖，在 \path{custom.tex} 的"自定义格式覆盖"区添加覆盖代码。
+
+\subsection{规则 4：custom.tex 整理}
+
+迁移映射表如下：
+
+\begin{table}[htbp]
+	\centering
+	\caption{\path{custom.tex} 内容迁移映射}
+	\label{tab:migration}
+	\begin{tabular}{ll}
+		\toprule
+		内容类型 & 迁移目标 \\
+		\midrule
+		\verb|\usepackage{...}| & \path{style/packages.tex}（对应功能组） \\
+		数学/物理 \verb|\newcommand| & \path{style/commands.tex} \\
+		定理/定义/证明环境 & \path{style/theorems.tex} \\
+		章节/标题格式 & \path{style/chapters.tex} \\
+		页眉/页脚 & \path{style/headers.tex} \\
+		代码语言/样式 & \path{style/listings.tex} \\
+		封面/扉页命令 & \path{style/cover.tex} \\
+		参考文献设置 & \path{style/bib.tex} \\
+		附录格式 & \path{style/appendix.tex} \\
+		无法归类 & 保留在 \path{custom.tex} \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{规则 5：添加章节}
+
+AI 会按照"复制模板 $\to$ 修改内容 $\to$ 注册到主文件"的流程帮用户添加新章节。
+
+\subsection{规则 6：编译验证}
+
+修改模板后 AI 会自动运行 \path{xelatex} 验证编译，确保没有引入错误。
+
+\section{AI 协作示例}
+
+以下展示典型的人机对话场景：
+
+\begin{tcolorbox}[
+	colback=blue!3!white,
+	colframe=blue!30!white,
+	title={\centering 对话示例}
+]
+\textbf{用户}：我需要用 \texttt{siunitx} 宏包来排版物理单位。\par
+\textbf{AI}：会将 \verb|\usepackage{siunitx}| 添加到 \path{style/custom.tex} 的"自定义宏包"区。\par\medskip
+
+\textbf{用户}：帮我定义一个 \verb|\pdv| 命令，简化偏导数的写法。\par
+\textbf{AI}：会在 \path{custom.tex} 中添加：\par
+\verb|\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}|\par\medskip
+
+\textbf{用户}：帮我把 \path{custom.tex} 里积累的内容整理一下。\par
+\textbf{AI}：会扫描 \path{custom.tex}，将 \verb|\usepackage{siunitx}| 迁移到 \path{packages.tex}，将 \verb|\pdv| 迁移到 \path{commands.tex}，清理 \path{custom.tex} 并留下迁移记录。
+\end{tcolorbox}
+
+\section{适配其他 AI 工具}
+
+虽然 \path{CLAUDE.md} 主要为 Claude Code 设计，但其内容格式是通用的 Markdown。其他 AI 编程工具（如 Cursor、GitHub Copilot Chat、Continue.dev 等）同样可以读取该文件作为项目上下文。如果你的 AI 工具支持自定义指令文件，将 \path{CLAUDE.md} 的内容复制进去即可。
+
+\end{document}

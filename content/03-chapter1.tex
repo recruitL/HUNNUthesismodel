@@ -1,0 +1,83 @@
+% ==========================================
+%  content/03-chapter1.tex  —  第一章示例
+%  可独立编译: xelatex 03-chapter1.tex
+%
+%  复制此文件创建新章节:
+%  1. 修改 \documentclass 和文件内容
+%  2. 在 main.tex 中添加 \subfile{content/XX-yourchapter}
+% ==========================================
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+% 正文全局设置（每个章节文件开头都需要）
+\cleardoublepage
+\thispagestyle{empty}
+\zihao{-4} \songti
+\setlength{\baselineskip}{24pt}
+\pagenumbering{arabic}
+\RaggedRight
+\setlength{\parindent}{2em}
+\raggedbottom
+
+% ==========================================
+%  在此处开始正文
+% ==========================================
+\chapter{绪论} \label{ch:introduction}
+
+\section{研究背景} \label{sec:background}
+
+在19世纪末期，科学家们通过不懈的努力，以经典力学、经典电磁场理论和经典统计力学为基础，
+建立了经典物理学的体系。经典力学方面，Newton 于1687年\cite{Newton:1687eqk}
+在《自然哲学的数学原理》中提出了万有引力定律，首次解释了引力与天体运动的规律。
+
+% --- 示例：插入图片 ---
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[scale=0.25]{figure/GWsourcedete.jpg}
+	\caption{引力波频谱、波源和探测器，图片来源于\cite{GravitationalAstrophysicsLab}.}
+	\label{fig:GravitationalAstrophysicsLab}
+\end{figure}
+
+% --- 示例：使用 \figref 引用图片 ---
+\figref{fig:GravitationalAstrophysicsLab} 展示了引力波的频谱分布与相应的探测手段。
+
+% --- 示例：公式 ---
+Einstein 场方程可以写为
+\begin{equation} \label{eq:einstein}
+	R_{\mu\nu} - \frac{1}{2} g_{\mu\nu} R = 8\pi G \, T_{\mu\nu} ,
+\end{equation}
+其中 $R_{\mu\nu}$ 是 Ricci 张量，$R$ 是 Ricci 标量，$T_{\mu\nu}$ 是能量-动量张量。
+
+% --- 示例：定理环境 ---
+\begin{definition}[引力波]
+	引力波是时空曲率的扰动，以波的形式从引力源向外传播。
+	在弱场近似下，引力波满足波动方程。
+\end{definition}
+
+\begin{theorem}[Birkhoff 定理]
+	球对称真空引力场的唯一解是 Schwarzschild 解。
+\end{theorem}
+
+% --- 示例：子节 ---
+\section{研究现状} \label{sec:status}
+
+2015年，LIGO 成功探测到第一次引力波事件 GW150914\cite{LIGOScientific:2016aoc}，
+并获得2017年诺贝尔物理学奖。此后，意大利的 Virgo 和日本的 KAGRA 也加入了探测网络。
+
+% --- 示例：子节 ---
+\subsection{有效单体理论}
+
+有效单体理论（Effective-One-Body, EOB）由 T. Damour 等人提出，
+将真实两体动力学映射为有效单体动力学\cite{Damour:2000we}。
+
+% --- 示例：多行公式 ---
+\begin{align}
+	H_{\rm EOB} &= M \sqrt{1 + 2\nu (\hat{H}_{\rm eff} - 1)} , \\
+	\hat{H}_{\rm eff} &= \sqrt{A(r) \left(1 + \frac{p_r^2}{B(r)} + \frac{p_\varphi^2}{r^2} \right)} .
+\end{align}
+
+\section{本文结构} \label{sec:structure}
+
+本论文的结构安排如下：第二章介绍...
+
+\end{document}
