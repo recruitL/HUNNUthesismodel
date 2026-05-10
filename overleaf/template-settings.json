@@ -1,0 +1,10 @@
+{
+  "mainFile": "main.tex",
+  "compiler": "xelatex",
+  "name": "湖南师范大学学位论文模板 (HUNNU Thesis Template)",
+  "description": "湖南师范大学本/硕/博学位论文 LaTeX 模板。支持学术学位与专业学位六种组合切换，模块化架构，内置 AI 协作指南（CLAUDE.md），附带 51 页自举式技术使用手册。",
+  "tags": ["thesis", "chinese", "dissertation", "hunnu", "xelatex", "education"],
+  "university": "湖南师范大学 (Hunan Normal University)",
+  "degree": ["bachelor", "master", "phd"],
+  "language": "zh-CN"
+}
